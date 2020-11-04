@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:barcode_scan/barcode_scan.dart';
+
 import 'package:scanner_app1/src/pages/direcciones_page.dart';
 import 'package:scanner_app1/src/pages/mapas_page.dart';
 
@@ -29,8 +31,19 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  _scanQR() {
-    print('scan');
+  _scanQR() async {
+    //https://codigofacilito.com
+    //geo:19.4798571,-99.1557307,500
+
+    var result;
+
+    try {
+      result = await BarcodeScanner.scan();
+    } catch (e) {
+      result = e.toString();
+    }
+
+    print(result.rawContent);
   }
 
   Widget _cargarPagina(int paginaActual) {
