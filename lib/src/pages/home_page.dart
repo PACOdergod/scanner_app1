@@ -3,6 +3,7 @@ import 'package:barcode_scan/barcode_scan.dart';
 
 import 'package:scanner_app1/src/pages/direcciones_page.dart';
 import 'package:scanner_app1/src/pages/mapas_page.dart';
+import 'package:scanner_app1/src/providers/db_provider.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -35,15 +36,20 @@ class _HomePageState extends State<HomePage> {
     //https://codigofacilito.com
     //geo:19.4798571,-99.1557307,500
 
-    var result;
-
+    var result = 'https://codigofacilito.com';
+    /*
     try {
       result = await BarcodeScanner.scan();
     } catch (e) {
       result = e.toString();
-    }
+    }*/
 
-    print(result.rawContent);
+    //print(result.rawContent);
+
+    if (result != null) {
+      final scan = ScanModel(valor: result);
+      DBProvider.db.nuevoScan(scan);
+    }
   }
 
   Widget _cargarPagina(int paginaActual) {
