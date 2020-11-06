@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:barcode_scan/barcode_scan.dart';
+import 'package:scanner_app1/src/bloc/scans_bloc.dart';
+import 'package:scanner_app1/src/models/scan_model.dart';
 
 import 'package:scanner_app1/src/pages/direcciones_page.dart';
 import 'package:scanner_app1/src/pages/mapas_page.dart';
-import 'package:scanner_app1/src/providers/db_provider.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -11,6 +12,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final scansBloc = new ScansBloc();
+
   int _currentIndex = 0;
   @override
   Widget build(BuildContext context) {
@@ -18,7 +21,9 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text('Scanner'),
         actions: [
-          IconButton(icon: Icon(Icons.delete_forever), onPressed: null)
+          IconButton(
+              icon: Icon(Icons.delete_forever),
+              onPressed: scansBloc.borrarTodos)
         ],
       ),
       body: _cargarPagina(_currentIndex),
@@ -37,6 +42,7 @@ class _HomePageState extends State<HomePage> {
     //geo:19.4798571,-99.1557307,500
 
     var result = 'https://codigofacilito.com';
+    var result2 = 'geo:19.4798571,-99.1557307,500';
     /*
     try {
       result = await BarcodeScanner.scan();
@@ -48,7 +54,10 @@ class _HomePageState extends State<HomePage> {
 
     if (result != null) {
       final scan = ScanModel(valor: result);
-      DBProvider.db.nuevoScan(scan);
+      scansBloc.agregarScan(scan);
+
+      final scan2 = ScanModel(valor: result2);
+      scansBloc.agregarScan(scan2);
     }
   }
 
