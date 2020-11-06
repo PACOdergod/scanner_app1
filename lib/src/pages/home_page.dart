@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:barcode_scan/barcode_scan.dart';
 import 'package:scanner_app1/src/bloc/scans_bloc.dart';
@@ -32,13 +34,13 @@ class _HomePageState extends State<HomePage> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.filter_center_focus),
-        onPressed: _scanQR,
+        onPressed: () => _scanQR(context),
         backgroundColor: Theme.of(context).primaryColor,
       ),
     );
   }
 
-  _scanQR() async {
+  _scanQR(BuildContext context) async {
     //https://codigofacilito.com
     //geo:19.4798571,-99.1557307,500
 
@@ -60,7 +62,12 @@ class _HomePageState extends State<HomePage> {
       final scan2 = ScanModel(valor: result2);
       scansBloc.agregarScan(scan2);
 
-      abrirScan(scan);
+      if (Platform.isIOS) {
+        Future.delayed(Duration(milliseconds: 750), () {
+          abrirScan(context, scan);
+        });
+      }
+      abrirScan(context, scan);
     }
   }
 
