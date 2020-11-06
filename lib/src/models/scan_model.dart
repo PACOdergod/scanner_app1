@@ -8,7 +8,7 @@ class ScanModel {
     this.tipo,
     this.valor,
   }) {
-    if (this.valor.contains('http')) {
+    if (this.valor.contains('https')) {
       this.tipo = 'http';
     } else {
       this.tipo = 'geo';

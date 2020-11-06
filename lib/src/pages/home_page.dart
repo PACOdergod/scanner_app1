@@ -5,6 +5,7 @@ import 'package:scanner_app1/src/models/scan_model.dart';
 
 import 'package:scanner_app1/src/pages/direcciones_page.dart';
 import 'package:scanner_app1/src/pages/mapas_page.dart';
+import 'package:scanner_app1/src/utils/utils.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -41,7 +42,7 @@ class _HomePageState extends State<HomePage> {
     //https://codigofacilito.com
     //geo:19.4798571,-99.1557307,500
 
-    var result = 'https://codigofacilito.com';
+    var result = 'https://google.com';
     var result2 = 'geo:19.4798571,-99.1557307,500';
     /*
     try {
@@ -58,6 +59,8 @@ class _HomePageState extends State<HomePage> {
 
       final scan2 = ScanModel(valor: result2);
       scansBloc.agregarScan(scan2);
+
+      abrirScan(scan);
     }
   }
 
